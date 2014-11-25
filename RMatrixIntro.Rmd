@@ -47,8 +47,10 @@ Multilevel Regression Modeling, 2009
 
 - Suppose you wish to enter, then view the following matrix A in R
 
-> 1 2  
-> 3 4
+```{r comment=NA, echo=FALSE}
+A <- matrix(c(1, 3, 2, 4), 2, 2)
+A
+```
 
 - You would use the R commands:
 
