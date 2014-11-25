@@ -1,0 +1,156 @@
+# ￼￼￼￼￼￼￼￼￼￼￼Matrix Algebra in R – A Minimal Introduction
+# James H. Steiger
+# Department of Psychology and Human Development 
+# Vanderbilt University
+# Multilevel Regression Modeling, 2009
+
+# Outline
+# ￼1 Defining a Matrix in R
+#   - Entering by Columns
+#   - Entering by Rows
+#   - Entering a Column or Row Vector
+# 2 Extracting Pieces of a Matrix
+#   - Extracting Individual Elements 
+#   - Extracting a Row of a Matrix
+#   - Extracting a Column of a Matrix 
+#   - Extracting Several Rows and/or Columns
+# 3 Combining Matrices 
+#   - Joining Rows
+#   - Joining Columns
+# 4 Basic Matrix Operations
+#   - Matrix Addition and Subtraction Scalar Multiplication
+#   - Matrix Multiplication
+#   - Matrix Transposition
+#   - Matrix Inversion
+
+# ￼￼￼Preliminary Comments
+# - This is a very basic introduction
+# - For some more challenging basics, you might examine Chapter 5 of *An Introduction to R*,  the manual available from the Help->PDF Manuals menu selection in the R program
+
+# Entering a Matrix
+# - Suppose you wish to enter, then view the following matrix A in R
+# A = | 1 2 |
+#     | 3 4 |
+# - You would use the R commands:
+
+A <- matrix(c(1, 3, 2, 4), 2, 2)
+A
+
+# - Note that the numbers are, by default, entered into the matrix *columnwise*, i.e., by column
+
+# ￼￼￼Entering a Matrix By Rows
+# - You can enter the numbers by row, simply by adding an optional input variable
+# - Here are the R commands:
+
+A <- matrix(c(1, 2, 3, 4), 2, 2, byrow = TRUE)
+A
+
+# ￼￼￼Entering a Column Vector
+# - To enter a p × 1 column vector, simply enter a p × 1 matrix 
+
+a <- matrix(c(1, 2, 3, 4), 4, 1)
+a
+
+# - Row vectors are, likewise, entered as 1 × q matrices
+
+# ￼￼￼Extracting Individual Elements
+# - Individual elements of a matrix are referred to by their subscripts
+# - For example, consider a matrix correlation matrix R given below
+# - To extract element R3,1, we simply request R[3, 1]
+
+r <- c(1.00, 0.40, 0.30, 0.30, 0.40, 1.00, 0.20, 0.20, 0.30, 0.20, 1.00, 0.30, 0.30, 0.20, 0.30, 1.00)
+R <- matrix(r, 4, 4)
+R
+R[3, 1] 
+
+# ￼￼￼Extracting a Row of a Matrix
+# - To get an entire row of a matrix, you name the row and leave out the column
+# - For example, in the matrix R below, to get the first row, just enter R[1, ]
+
+R[1, ]
+
+# ￼￼￼Extracting a Column of a Matrix
+# - To get an entire column of a matrix, you name the column and leave out the row
+# - For example, in the matrix R below, to get the first column, just enter R[ , 1]
+
+R[ , 1]
+
+# ￼Extracting Several Rows and/or Columns
+# Examine the following examples to see how we can extract any specified range of rows and/or columns
+
+R[1:3, ]
+R[1:3, 2:4]
+
+# ￼￼￼Joining Rows
+# - On occasion, we need to build up matrices from smaller parts
+# - You can combine several matrices with the same number of columns by joining them as rows, using the rbind() command
+# - Here is an example
+
+A <- matrix(c(1, 3, 3, 9, 6, 5), 2, 3) 
+B <- matrix(c(9, 8, 8, 2, 9, 0), 2, 3)
+A
+B
+rbind(A, B)
+rbind(B, A)
+
+# ￼￼￼Joining Columns
+# - In similar fashion, you can combine several matrices with the same number of rows by joining them as columns, using the cbind() command
+# - Here is an example
+
+A <- matrix(c(1, 3, 3, 9, 6, 5), 2, 3) 
+B <- matrix(c(9, 8, 8, 2, 9, 0), 2, 3)
+A
+B
+cbind(A, B)
+cbind(B, A)
+
+# ￼Matrix Addition and Subtraction
+# ￼Adding or subtracting matrices is natural and straightforward, as the example below shows
+￼￼￼￼
+A <- matrix(c(1, 3, 3, 9), 2, 2) 
+B <- matrix(c(9, 8, 8, 2), 2, 2)
+A
+B
+A + B
+A - B
+
+# ￼Scalar Multiplication
+# ￼To multiply a matrix by a scalar, simply use the multiplication symbol *
+# For example,
+
+A
+3*A
+
+# ￼Matrix Multiplication
+# ￼Matrix multiplication uses the %*% command
+# Example
+
+A
+B
+A %*% B
+B %*% A
+
+# ￼Matrix Transposition
+# ￼To transpose a matrix, use the t() command
+# Example
+
+A <- matrix(c(1, 3, 3, 9, 6, 5), 2, 3) 
+B <- matrix(c(9, 8, 8, 2, 9, 0), 2, 3)
+A
+B
+t(A)
+t(B)
+
+# ￼Matrix Inversion
+# - To invert a square matrix, use the solve() command
+# - In the example below, we illustrate a common problem — numbers that are really zero are only very close to zero due to rounding error
+# - When we compute the product AA−1, we should get the identity matrix I , but instead we see that the off-diagonal elements are not quite zero.
+# - To cure this problem, you can use the zapsmall() function
+#  ￼￼￼￼￼Example 
+
+A <- matrix(c(1, 9, 9, 3, 6, 1, 3, 5, 8), 3, 3, byrow = TRUE) 
+A
+solve(A)
+A %*% solve(A)
+zapsmall( A %*% solve(A) )
+￼
