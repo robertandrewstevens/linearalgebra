@@ -1,0 +1,538 @@
+---
+title: "Examples of Using R with Linear Algebra"
+author: "Robert A. Stevens"
+date: "November 29, 2014"
+output: html_document
+---
+
+by S. K. Hyde, August 28, 2007
+
+## Contents
+
+1 Introduction
+
+2 Creating Vectors and Matrices  
+2.1 Create a Vector: c  
+2.2 Create a Sequence of Numbers: :  
+2.3 Create a Sequence of Numbers: seq  
+2.4 Create a Vector by Replication: rep  
+2.5 Create a Matrix: matrix  
+2.6 Combine Rows or Columns: rbind, cbind
+
+3 Extracting Elements from a Vector or Matrix  
+3.1 Vectors  
+3.1.1 Extract an Element: x[n]  
+3.1.2 Extract All Elements Except an Element: x[-n]  
+3.1.3 Extract a Sequence of Elements: x[1:n]  
+3.1.4 Extract a Sequence of Elements: x[-(1:n)]  
+3.1.5 Extract Many Specific Elements: x[c(1, 5, 9)]  
+3.1.6 Extract Elements Meeting a Criteria: x[x > 2]  
+3.1.7 Extract Elements Meeting a Criteria: x[x > 2 & x < 5]  
+3.2 Matrices  
+3.2.1 Extract an Element of a Matrix: A[i, j]  
+3.2.2 Extract a Row of a Matrix: A[i, ]  
+3.2.3 Extract a Column of a Matrix: A[ , j]  
+3.2.4 Extract a Series of Rows: A[5:n, ]  
+3.2.5 Extract Specific Columns: A[ , c(1, 4, 5)]  
+3.3 General Information Commands  
+3.3.1 Dimension of a Matrix: dim  
+3.3.2 Number of Elements in a Matrix or Vector: length  
+3.3.3 Number of Rows or Columns: nrow, ncol  
+3.3.4 Dimension Names of a Matrix: dimnames
+
+4 Vector and Matrix Operations  
+4.1 Add Vectors of Matrices: +  
+4.2 Subtract Vectors or Matrices: -  
+4.3 Multiply Vectors or Matrices: %*%, *  
+4.4 Transpose of a Matrix: t  
+4.5 Extract a Diagonal of a Matrix, or Create a Diagonal Matrix: diag  
+4.6 Inverse of a Matrix or Solve a System of Equations: solve  
+4.7 Create A⊤A efficiently: crossprod  
+4.8 Sum the Elements of a Vector or Matrix: sum  
+4.9 Multiply the Elements of a Vector or Matrix: prod  
+4.10 Cumulative Sum of a Vector: cumsum  
+4.11 Cumulative Product of a Vector: cumprod  
+4.12 Minimum Value of a Vector or Matrix: min  
+4.13 Maximum Value of a Vector or Matrix: max  
+4.14 Determinant of a Matrix: det
+
+5 Matrix Factorizations
+
+# 1 Introduction
+
+The R statistical programming environment is a free implementation of the S computer language. In addition to being used to analyze statistical problems, it can also be used to do linear algebra, as it has matrix and array capabilities. There are other programs that can be used, such as Matlab, Mathematica, and Maple. In our class, we will use the program R.
+
+To install R, consult our class website links. There is a link there to give you instructions on installing R for windows, which I’ll assume that most of you have. If you don’t have windows, talk with me and we’ll work on installing it for you.
+
+To start up R, you either type R at a command prompt (Linux), click on the R icon on the desktop (windows), or find R in the start menu (windows). Once an R window has started, you type commands into the command window. For example,
+
+```{r comment=NA}
+23 + 49
+```
+
+The goal of this document is to give you a summary of the commands that can be used for Linear Algebra in R. These will be categorized into creation of matrices and vectors, extracting elements from matrices and vectors, operating on vectors and matrices, and matrix factorizations. For any of these commands, you can type **help(command)** in the command window to receive more detailed help.
+
+# 2 Creating Vectors and Matrices 
+
+## 2.1 Create a Vector: c
+
+To create a vector, the **c** command is used, which combines its arguments (think **c** for combine or concatenate). For example, to create a vector **v**, which consists of the numbers from 2 to 7, then
+
+```{r comment=NA}
+v <- c(2, 3, 4, 5, 6, 7) 
+v
+```
+
+The [1] that is before the elements of the vector indicates that this vector is one dimensional. It might make more sense when you see how R denotes dimensions of a matrix later on. Note that vectors created in this way are typically thought of as column vectors, even though they are not written in that manner.
+
+## 2.2 Create a Sequence of Numbers: :
+  
+The **:** command is useful to create a sequence of numbers that are separated from each other by 1. For example, a simpler way to create the vector which consists of the numbers from 2 to 7 would be
+
+```{r comment=NA}
+v <- 2:7 
+v
+```
+
+## 2.3 Create a Sequence of Numbers: seq
+
+Another command to create vectors is **seq**, which is short for sequence. The syntax of **seq** is **seq(from, to, by, length, along)**. Not all the arguments must be used, the only required arguments are **from** and **to**. For example, to create a vector of the even numbers from 2 to 20,
+
+```{r comment=NA}
+v <- seq(2, 20, by = 2) 
+v
+```
+
+The **along** argument is used to specify the length of the vector you want. For example:
+
+```{r comment=NA}
+v <- seq(2, 20, along = 1:15) 
+v
+```
+
+This created a vector with 15 elements that are equally spaced from 2 to 20.
+
+## 2.4 Create a Vector by Replication: rep
+
+The **rep** command is used to create a vector in which elements are replicated. The simplest way to create a 10 dimensional vector of ones is
+
+```{r comment=NA}
+v <- rep(1, 10) 
+v
+```
+
+You can also create more complicated repeating structures, such as
+
+```{r comment=NA}
+v <- rep(c(1, 2, 3), 3) 
+v
+```
+
+which replicates the vector (1, 2, 3) three times. The each argument replicates each element before proceeding to the next element
+
+```{r comment=NA}
+v <- rep(c(1, 2, 3), each = 3) 
+v
+```
+
+## 2.5 Create a Matrix: matrix
+
+To create a 3 × 2 matrix that contains in the first column 2, 3, 4 and the second column 5, 6, 7,
+
+```{r comment=NA}
+A <- matrix(c(2, 3, 4, 5, 6, 7), 3, 2) 
+A
+```
+
+The [3,] indicates this is the third row, and the [,2] indicates it is the second column.
+
+You need to make sure that the the number of entries in the **c()** equals the number of rows times the number of columns. If they aren’t, R will either hack off the rest, or it will recycle arguments until the asked for size is reached. Don’t assume it will give you an error or a warning! However, sometimes it might be exactly what you wanted.
+
+```{r comment=NA}
+A <- matrix(1:100, 2, 5) 
+A
+B <- matrix(c(2, 5, 7), 3, 8) 
+B
+```
+
+Notice that the creation of matrices works by first filling in a column before proceeding to the next column. To enter a matrix by the rows instead of the columns, then add the argument **byrow = TRUE** to the command parameters. That results with:
+
+```{r comment=NA}
+A <- matrix(c(2, 3, 4, 5, 6, 7), 3, 2, byrow = TRUE) 
+A
+```
+
+Matrices can also be entered by only specifying how many rows or columns instead of specifying the exact dimensions of the matrix. For example:
+
+```{r comment=NA}
+A <- matrix(c(2, 3, 4, 5, 6, 7), nrow = 3, byrow = TRUE) 
+A
+```
+
+## 2.6 Combine Rows or Columns: rbind, cbind
+
+To combine vectors into a matrix, use the commands **cbind** or **rbind**. **cbind** combines them together as columns, whereas **rbind** combines them together as rows. The vectors should have the same dimension. If they don’t, you will receive a warning, and it will attempt to recycle the arguments.
+
+```{r comment=NA}
+u <- 1:6
+v <- 1:6
+w <- c(1, 3, 4, 8, 9, 0)
+cbind(u, v)
+rbind(v, w)
+```
+
+# 3 Extracting Elements from a Vector or Matrix 
+
+## 3.1 Vectors
+
+The following commands can be used to extract elements from a vector. Examples of these commands follow.
+
+    x[n] = Extract the nth element of x.
+    x[-n] = Extract everything except the nth element of x. 
+    x[1:n] = Extract elements 1 through n of x.
+    x[-(1:n)] = Extract all elements other than elements 1 though n.
+    x[c(1, 5, 9)] = Extract elements 1, 5 and 9 from x.
+    x[x > 2] = Extract all elements of x that are larger than 2. 
+    x[x > 2 & x < 5] = Extract all elements of x that are between 2 and 5.
+
+### 3.1.1 Extract an Element: x[n]
+
+To extract the nth element of **x** use the command **x[n]**:
+
+```{r comment=NA}
+x <- seq(2, 20, by = 2) 
+x
+x[5]
+```
+
+### 3.1.2 Extract All Elements Except an Element: x[-n]
+
+To extract everything except the nth element of **x** use the command **x[-n]**:
+
+```{r comment=NA}
+x
+x[-5]
+```
+
+### 3.1.3 Extract a Sequence of Elements: x[1:n]
+
+To extract elements 1 through n of **x** use the command **x[1:n]**:
+
+```{r comment=NA}
+x
+x[1:5]
+```
+
+### 3.1.4 Extract a Sequence of Elements: x[-(1:n)]
+
+To extract all elements other than elements 1 though n use the command **x[-(1:n)]**. In other words, this extracts the elements from n + 1 until the end of the vector. 
+
+```{r comment=NA}
+x
+x[-(1:5)]
+```
+
+### 3.1.5 Extract Many Specific Elements: x[c(1, 5, 9)]
+
+To extract elements 1, 5 and 9 from **x** use the command **x[c(1, 5, 9)]**. 
+
+```{r comment=NA}
+x
+x[c(1, 5, 9)]
+```
+
+### 3.1.6 Extract Elements Meeting a Criteria: x[x > 2]
+
+To extract all elements of **x** that are larger than 2 use the command **x[x > 2]**. 
+
+```{r comment=NA}
+x
+x[x > 2]
+```
+
+### 3.1.7 Extract Elements Meeting a Criteria: x[x > 2 & x < 5]
+
+To extract all elements of **x** that are between 2 and 5 use the command **x[x > 2 & x < 5]**: 
+
+```{r comment=NA}
+x
+x[x > 2 & x < 5]
+```
+
+## 3.2 Matrices
+
+The following commands can be used to extract elements, rows, etc. from a matrix. Examples of these commands follow.
+
+    A[i, j] = Extract the element in row i, column j. 
+    A[i, ] = Extract the ith row of A.
+    A[ , j] = Extract the jth column of A.
+    A[5:n, ] = Extract rows 5 through n of A. 
+    A[ ,c(1, 4, 5)] = Extract columns 1, 4, and 5 from A
+
+### 3.2.1 Extract an Element of a Matrix: A[i, j]
+
+To extract the element in row i, column j, use the command **A[i, j]**:
+
+```{r comment=NA}
+A <- matrix(1:20, 4, 5) 
+A
+A[3, 5]
+```
+
+### 3.2.2 Extract a Row of a Matrix: A[i, ]
+
+To extract the ith row of **A**, use the command **A[i,]**: 
+
+```{r comment=NA}
+A[2, ]
+```
+
+### 3.2.3 Extract a Column of a Matrix: A[ ,j]
+
+To extract the jth column of **A**, use the command **A[,j]**: 
+
+```{r comment=NA}
+A[, 5]
+```
+
+### 3.2.4 Extract a Series of Rows: A[5:n, ]
+
+To extract rows 5 through n of **A**, use the command **A[5:n, ]**: 
+
+```{r comment=NA}
+A[3:4, ]
+```
+
+### 3.2.5 Extract Specific Columns: A[ , c(1, 4, 5)]
+
+To extract columns 1, 4, and 5 from **A**, use the command **A[ , c(1, 4, 5)]**: 
+
+```{r comment=NA}
+A[, c(1, 4, 5)]
+```
+
+## 3.3 General Information Commands
+
+The following commands can be used to gather information about matrices or vectors.
+
+    dim = Displays or sets the dimension of a matrix
+    length = Displays the number of elements in a matrix or vector.
+    nrow = Displays the number of rows in a matrix.
+    ncol = Displays the number of columns in a matrix.
+    dimnames = Displays or sets the name of the the dimensions of the vector or matrix.
+
+### 3.3.1 Dimension of a Matrix: dim
+
+To display or set the dimension of a matrix, use the command dim:
+
+```{r comment=NA}
+A <- matrix(1:10, 5, 2) 
+A
+dim(A)
+dim(A) <- c(2, 5) 
+A
+```
+
+Note that this is **NOT** the transpose of **A**!
+
+### 3.3.2 Number of Elements in a Matrix or Vector: length
+
+To display the number of elements in a matrix or vector, use the command **length**: 
+
+```{r comment=NA}
+A
+length(A)
+v
+length(v)
+```
+
+### 3.3.3 Number of Rows or Columns: nrow, ncol
+
+To display the number of rows or columns in a matrix, use the commands nrow or **ncol**: 
+
+```{r comment=NA}
+nrow(A)
+ncol(A)
+```
+
+### 3.3.4 Dimension Names of a Matrix: dimnames
+
+To display or set the name of the the dimension of the vector or matrix, use the command **dimnames**: 
+
+```{r comment=NA}
+dimnames(A)
+u <- c(1, 2, 3) 
+v <- c(4, 5, 6) 
+W <- cbind(u, v) 
+W
+dimnames(W)
+dimnames(W) <- c(NULL, NULL) 
+W
+```
+
+# 4 Vector and Matrix Operations
+
+The following commands perform operations on matrices and vectors.
+
+    + = Add two matrices/vectors
+    - = Subtract two matrices/vectors
+    %*% = Multiply two matrices
+    * = Elementwise multiplication of two matrices/vectors
+    t = Transpose of the matrix.
+    diag = Extracts the diagonal of a matrix or creates a diagonal matrix from a vector. 
+    solve = Finds an inverse of a matrix or solves a system of equations)
+    crossprod = Creates the crossproduct A⊤A in an efficient manner.
+    sum = sum of the elements
+    prod = product of the elements
+    cumsum = cumulative sum of the elements
+    cumprod = cumulative product of the elements
+    min = Finds the minimum value in a matrix
+    max = Finds the maximum value in a matrix
+    det = Calculates the determinant of a matrix
+
+An example of each of the above commands follows.
+
+## 4.1 Add Vectors of Matrices: +
+  
+To add matrices or vectors elementwise, the operator **+** is used:
+
+```{r comment=NA}
+A <- matrix(c(1:5, 11:14), 3, 3)
+B <- matrix(1:9, 3, 3)
+A
+B
+A + B
+```
+
+## 4.2 Subtract Vectors or Matrices: -
+
+To subtract two matrices/vectors, use the command, use the command **-**: 
+
+```{r comment=NA}
+A - B
+```
+
+## 4.3 Multiply Vectors or Matrices: %\*%, \* 
+  
+To multiply two matrices together, the **%\*%** operator is used. 
+
+```{r comment=NA}
+A %*% B
+```
+
+Note that this is different than the **\***, which performs an elementwise multiplication: 
+
+```{r comment=NA}
+A*B
+```
+
+## 4.4 Transpose of a Matrix: t 
+
+To transpose a matrix, use the command **t**: 
+
+```{r comment=NA}
+t(A)
+```
+
+## 4.5 Extract a Diagonal of a Matrix, or Create a Diagonal Matrix: diag
+
+To extract the diagonal of a matrix or create a diagonal matrix from a vector, use the command **diag**: 
+
+```{r comment=NA}
+diag(A)
+diag(c(1, 1, 1))
+diag(diag(A))
+```
+
+## 4.6 Inverse of a Matrix or Solve a System of Equations: solve 
+
+To find the inverse of a matrix or solve a system of equations, use the command **solve**: 
+
+```{r comment=NA}
+solve(A)
+b <- c(2, 3, 4)
+x <- solve(A, b) 
+x
+```
+
+You can also use the **fractions** command from the **MASS** package to convert the answer to fractions:
+
+```{r comment=NA}
+require(MASS)
+fractions(x)
+```
+
+## 4.7 Create A^⊤^A efficiently: crossprod
+
+To create the crossproduct A^⊤^A in an efficient manner, use the command **crossprod**: 
+
+```{r comment=NA}
+crossprod(A)
+t(A) %*% A
+```
+
+## 4.8 Sum the Elements of a Vector or Matrix: sum 
+
+To sum the elements of a vector or a matrix, use the command **sum**: 
+
+```{r comment=NA}
+b
+sum(b)
+A
+sum(A)
+```
+
+## 4.9 Multiply the Elements of a Vector or Matrix: prod 
+
+To multiply the elements of a vector or a matrix, use the command **prod**:
+
+```{r comment=NA}
+prod(1:5)
+prod(c(2, 3, 5))
+```
+
+## 4.10 Cumulative Sum of a Vector: cumsum
+
+To create a vector of cumulative sums of the elements of a vector, use the command **cumsum**. If used on a matrix, the matrix is first changed to a vector.
+
+```{r comment=NA}
+b
+cumsum(b)
+```
+
+## 4.11 Cumulative Product of a Vector: cumprod
+
+To create a vector of cumulative products of the elements of a vector, use the command **cumprod**. If used on a matrix, the matrix is first changed to a vector.
+
+```{r comment=NA}
+b
+cumprod(b)
+```
+
+## 4.12 Minimum Value of a Vector or Matrix: min
+
+To find the minimum value in a vector or matrix, use the command **min**: 
+
+```{r comment=NA}
+min(A)
+```
+
+## 4.13 Maximum Value of a Vector or Matrix: max
+
+To find the maximum value in a vector or matrix, use the command **max**: 
+
+```{r comment=NA}
+max(A)
+```
+
+## 4.14 Determinant of a Matrix: det
+
+To calculate the determinant of a square matrix, use the command **det**: 
+
+```{r comment=NA}
+det(A)
+```
+
+# 5 Matrix Factorizations
+
+*To be completed!*
