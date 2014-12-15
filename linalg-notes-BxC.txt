@@ -1,0 +1,351 @@
+Introduction to linear algebra with R 
+August 2011Version 4Compiled Friday 5th August, 2011, 10:18 
+from: C:/Bendix/undervis/APC/00/LinearAlgebra/linalg-notes-BxC.tex
+Søren HøjsgaardDepartment of Genetics and Biotechnology, 
+Aarhus UniversityDK–8830 Tjele, Denmarka few additions by: 
+Bendix CarstensenSteno Diabetes Center, Gentofte, Denmark& Department of Biostatistics, University of Copenhagen 
+bxc@steno.dkwww.pubhealth.ku.dk/~bxc
+
+Contents1 Matrix algebra1.1 Introduction1.2 Vectors1.2.1 Vectors
+1.2.2 Transpose of vectors
+1.2.3 Multiplying a vector by a number
+1.2.4 Sum of vectors
+1.2.5 Inner product of vectors
+1.2.6 The length (norm) of a vector
+1.2.7 The 0–vector and 1–vector
+1.2.8 Orthogonal (perpendicular) vectors1.3 Matrices
+1.3.1 Matrices
+1.3.2 Multiplying a matrix with a number
+1.3.3 Transpose of matrices 
+1.3.4 Sum of matrices
+1.3.5 Multiplication of a matrix and a vector
+1.3.6 Multiplication of matrices
+1.3.7 Vectors as matrices 
+1.3.8 Some special matrices
+1.3.9 Inverse of matrices
+1.3.10 Solving systems of linear equations
+1.3.11 Some additional rules for matrix operations
+1.3.12 Details on inverse matrices2 Linear models2.1 Least squares
+2.1.1 A neat little exercise — from a bird’s perspective2.2 Linear models
+2.2.1 What goes on in least squares? 
+2.2.2 Projections in Epi
+2.2.3 Constructing confidence intervals
+2.2.4 Showing an estimated curve
+2.2.5 Reparametrizations
+Chapter 1 Matrix algebra1.1 IntroductionThese notes have two aims: 1) Introducing linear algebra (vectors and matrices) and 2) showing how to work with these concepts in R. They were written in an attempt to give a specific group of students a “feeling” for what matrices, vectors etc. are all about. Hence the notes/slides are not suitable for a course in linear algebra.1.2 Vectors 
+
+1.2.1 VectorsA column vector is a list of numbers stacked on top of each other, e.g.
+a = [2 1 3]A row vector is a list of numbers written one after the other, e.g. 
+
+b = (2,1,3)In both cases, the list is ordered, i.e.(2, 1, 3) != (1, 2, 3).We make the following convention:• In what follows all vectors are column vectors unless otherwise stated.• However, writing column vectors takes up more space than row vectors. Therefore we shall frequently write vectors as row vectors, but with the understanding that it really is a column vector.A general n–vector has the forma = [a1 a2 . . . an]where the ais are numbers, and this vector shall be written a = (a1, . . . , an).
+Figure 1.1: Two 2-vectorsA graphical representation of 2–vectors is shown Figure 1.1. Note that row and column vectors are drawn the same way.> a <- c(1,3,2) 
+> a[1] 1 3 2The vector a is in R printed “in row format” but can really be regarded as a column vector, cfr. the convention above.1.2.2 Transpose of vectorsTransposing a vector means turning a column (row) vector into a row (column) vector. The transpose is denoted by “⊤”.
+Example 1.2.1
+[1 3 2]⊤ =[1, 3, 2] and [1, 3, 2]⊤ = [1 3 2]Hence transposing twice takes us back to where we started: a = (a⊤)⊤To illustrate this, we can transpose a to obtain a 1 × 3 matrix (which is the same as a 3–row vector):
+
+> t(a)     [,1] [,2] [,3][1,]    1    3    21.2.3 Multiplying a vector by a numberIf a is a vector and α is a number then αa is the vector
+
+αa = [αa1 αa2 . . . αan]
+
+See Figure 1.2. 
+
+Example 1.2.27[1 3 2] = [7 21 14]Multiplication by a number:> 7*a[1] 7 21 141.2.4 Sum of vectorsLet a and b be n–vectors. The sum a + b is the n–vectora + b = [a1 a2 . . . an] + [b1 b2 . . . bn] = [a1+b1 a2+b2 . . . an+bn] = b + aSee Figure 1.3 and 1.4. Only vectors of the same dimension can be added.
+a1 = (2, 2)−a2 = (−1, 0.5)a2 = (1, −0.5)2a =(2, −1)
+Figure 1.2: Multiplication of a vector by a number
+
+Example 1.2.3[1 3 2] + [2 8 9] = [1+2 3+8 2+9] = [3 11 11]
+Addition of vectors:> a <- c(1, 3, 2)> b <- c(2, 8, 9)> a + b[1] 3 11 11
+a1 = (2, 2)a1 + a2 = (3, 1.5)a2 = (1, −0.5)Figure 1.3: Addition of vectors1.2.5 Inner product of vectorsLet a = (a1,..., an) and b = (b1,..., bn). The inner product of a and b is
+a · b = (a1)(b1) + · · · + (an)(bn)Note, that the inner product is a number – not a vector:
+> sum(a*b)[1] 44a1 + (−a2) = (1, 2.5)a1 = (2, 2)− a2 = (−1, 0.5)a1 + a2 = (3, 1.5)a2 = (1, −0.5)Figure 1.4: Addition of vectors and multiplication by a number1.2.6 The length (norm) of a vectorThe length (or norm) of a vector a is
+||a||= sqrt(a·a) = sqrt(sum((ai)^2))
+Norm (length) of vector:> sqrt(sum(a*a))[1] 3.741657
+1.2.7 The 0–vector and 1–vectorThe 0-vector (1–vector) is a vector with 0 (1) on all entries. The 0–vector (1–vector) is frequently written simply as 0 (1) or as 0n (1n) to emphasize that its length n.
+0–vector and 1–vector> rep(0,5)[1] 0 0 0 0 0> rep(1,5)[1] 1 1 1 1 11.2.8 Orthogonal (perpendicular) vectorsTwo vectors v1 and v2 are orthogonal if their inner product is zero, written 
+
+v1 ⊥ v2 <=> v1·v2 =0Note that any vector is orthogonal to the 0–vector. Orthogonal vectors:> v1 <- c(1, 1)> v2 <- c(-1, 1)> sum(v1*v2)[1] 01.3 Matrices 
+
+1.3.1 MatricesAn r × c matrix A (reads “an r times c matrix”) is a table with r rows and c columns 
+
+A =
+
+|a11 a12 ... a1c||a21 a22 ... a2c| 
+|.   .   ... .   
+|ar1 ar2 ... arc|Note that one can regard A as consisting of c columns vectors put after each other: 
+
+A=[a1 :a2 :···:ac]Likewise one can regard A as consisting of r row vectors stacked on top of each other. 
+
+Create a matrix:> A <- matrix(c(1, 3, 2, 2, 8, 9), ncol = 3) 
+> A     [,1] [,2] [,3][1,]    1    2    8[2,]    3    2    9Note that the numbers 1, 3, 2, 2, 8, 9 are read into the matrix column–by–column. To get the numbers read in row–by–row do> A2 <- matrix(c(1, 3, 2, 2, 8, 9), ncol = 3, byrow =T)> A2     [,1] [,2] [,3][1,]    1    3    2[2,]    2    8    9
+1.3.2 Multiplying a matrix with a numberFor a number α and a matrix A, the product αA is the matrix obtained by multiplying each element in A by α.Example 1.3.1α = 7
+A = 
+|1 2|
+|3 8|
+|2 9|
+
+Multiplication of matrix by a number:> 7*A     [,1] [,2] [,3][1,]    7   14   56[2,]   21   14   631.3.3 Transpose of matricesA matrix is transposed by interchanging rows and columns and is denoted by “⊤”. 
+
+Example 1.3.2
+|1 2|⊤
+|3 8|
+|2 9|
+
+=
+
+|1 3 2|
+|2 8 9|
+Note that if A is an r×c matrix then A⊤ is a c×r matrix. 
+
+Transpose of matrix> t(A)     [,1] [,2][1,]    1    3[2,]    2    2[3,]    8    91.3.4 Sum of matricesLet A and B be r×c matrices. The sum A+B is the r×c matrix obtained by adding A and B element wise.Only matrices with the same dimensions can be added.Example 1.3.3
+|1 2|
+|3 8|
+|2 9|
+
++
+
+|5 4|
+|8 2|
+|3 7|
+
+=
+
+| 6  6|
+|11 10|
+| 5 16|
+
+Addition of matrices> B <- matrix(c(5, 8, 3, 4, 2, 7), ncol = 3, byrow = T)> A + B     [,1] [,2] [,3][1,]    6   10   11[2,]    7    4   161.3.5 Multiplication of a matrix and a vectorLet A be an r × c matrix and let b be a c-dimensional column vector. The product Ab is the r × 1 matrixAb =|a11 a12 ... a1c|
+|a21 a22 ... a2c|
+|. . . . . . . .|
+|ar1 ar2 ... arc|
+x
+|b1|
+|b2|
+|..|
+|bc|
+=
+|a11b1 + a12b2 + ··· + a1cbc|
+|a21b1 + a22b2 + ··· + a2cbc||. . . . . . . . . . . . . .|
+|ar1b1 + ar2b2 + ··· + arcbc|
+Example 1.3.4|1 2|
+|3 8|
+|2 9|
+x
+|5|
+|8|
+=
+|1·5 + 2·8|
+|3·5 + 8·8|
+|2·5 + 9·8|
+=
+|21|
+|79|
+|82|
+Multiplication of a matrix and a vector> A %*% a     [,1][1,]   23[2,]   27Note the difference to:> A*a     [,1] [,2] [,3][1,]    1    4   24[2,]    9    2   18
+Figure out yourself what goes on!1.3.6 Multiplication of matricesLet A be an r × c matrix and B a c × t matrix, i.e. B = [b1 : b2 : · · · : bt]. The product AB is the r × t matrix given by:AB = A[b1 : b2 : ··· : bt] = [Ab1 : Ab2 : ··· : Abt]Example 1.3.5|1 2| 
+|3 8| 
+|2 9|
+x
+|5 4|
+|8 2| 
+=
+|1 2|
+|3 8|
+|2 9|
+x
+|5|
+|8|
+:
+|1 2|
+|3 8|
+|2 9|
+x
+|4|
+|2|=|1·5 + 2·8  1·4 + 2·2| 
+|3·5 + 8·8  3·4 + 8·2|
+|2·5 + 9·8  2·4 + 9·2|
+=
+|21  8|
+|79 28|
+|82 26|
+
+Note that the product AB can only be formed if the number of rows in B and the number of columns in A are the same. In that case, A and B are said to be conform.In general AB and BA are not identical. 
+
+A mnemonic for matrix multiplication is:Matrix multiplication:> A <- matrix(c(1, 3, 2, 2, 8, 9), ncol = 2)> B <- matrix(c(5, 8, 4, 2), ncol = 2)> A %*% B     [,1] [,2][1,]   21    8[2,]   79   28[3,]   82   261.3.7 Vectors as matricesOne can regard a column vector of length r as an r × 1 matrix and a row vector of length c as a 1 × c matrix.1.3.8 Some special matrices• An n × n matrix is a square matrix• A matrix A is symmetric if A = A⊤.• A matrix with 0 on all entries is the 0–matrix and is often written simply as 0.• A matrix consisting of 1s in all entries is often written J.• A square matrix with 0 on all off–diagonal entries and elements d1, d2, . . . , dn on the diagonal a diagonal matrix and is often written diag{d1, d2, . . . , dn}• A diagonal matrix with 1s on the diagonal is called the identity matrix and is denoted I. The identity matrix satisfies that IA = AI = A. Likewise, if x is a vector then Ix = x.0-matrix and 1-matrix
+> matrix(0,nrow=2,ncol=3)     [,1] [,2] [,3][1,]    0    0    0[2,]    0    0    0> matrix(1,nrow=2,ncol=3)     [,1] [,2] [,3][1,]    1    1    1[2,]    1    1    1
+Diagonal matrix and identity matrix
+> diag(c(1,2,3))     [,1] [,2] [,3][1,]    1    0    0[2,]    0    2    0[3,]    0    0    3> diag(1,3)     [,1] [,2] [,3][1,]    1    0    0[2,]    0    1    0[3,]    0    0    1
+Note what happens when diag is applied to a matrix:> diag(diag(c(1,2,3)))[1] 1 2 3> diag(A)[1] 1 8
+1.3.9 Inverse of matricesIn general, the inverse of an n × n matrix A is the matrix B (which is also n × n) which when multiplied with A gives the identity matrix I. That is,AB = BA = I.One says that B is A’s inverse and writes B = A−1. Likewise, A is B’s inverse.Example 1.3.6Let
+
+A =|1 3| 
+|2 4|
+
+B =
+|−2  1.5|
+| 1 -0.5|
+Now AB = BA = I, so B = A−1. 
+
+Example 1.3.7If A is a 1×1matrix,i.e. a number, for example A = 4,then A−1 = 1/4.Some facts about inverse matrices are:• Only square matrices can have an inverse, but not all square matrices have an inverse.• When the inverse exists, it is unique.• Finding the inverse of a large matrix A is numerically complicated (but computers do it for us).
+Finding the inverse of a matrix in R is done using the solve() function:
+
+> A <- matrix(c(1, 3, 2, 4), ncol = 2, byrow = T) 
+> A     [,1] [,2][1,]    1    3[2,]    2    4
+> #M2 <- matrix(c(-2, 1.5, 1, -0.5), ncol = 2, byrow = T) 
+> B <- solve(A)> B     [,1] [,2][1,]   -2  1.5[2,]    1 -0.5> A%*%B     [,1] [,2][1,]    1    0[2,]    0    1
+1.3.10 Solving systems of linear equationsExample 1.3.8Matrices are closely related to systems of linear equations. Consider the two equations 
+
+ x1 + 3x2 =  72x1 + 4x2 = 10The system can be written in matrix form
+
+|1 3|
+|2 4|
+x
+|x1|
+|x2|
+=
+| 7|
+|10|
+
+i.e. Ax = b
+Since (A−1)(A) = I and since Ix = x we have
+x = (A-1)b =
+
+|−2  1.5|
+| 1 −0.5|x
+| 7|
+|10|
+=
+|1|
+|2|
+A geometrical approach to solving these equations is as follows: Isolate x2 in the equations:
+x2 = 7/3 − (1/3)x1 
+x2 = (1/0)4 − (2/4)x1These two lines are shown in Figure 1.5 from which it can be seen that the solution is x1 = 1, x2 = 2.From the Figure it follows that there are 3 possible cases of solutions to the system 
+
+1. Exactly one solution – when the lines intersect in one point2. No solutions – when the lines are parallel but not identical3. Infinitely many solutions – when the lines coincide.Figure 1.5: Solving two equations with two unknowns.Solving systems of linear equations: If Mx = z where M is a matrix and x and z are vectors the solution is x = (M−1)z:> A <- matrix(c(1, 2, 3, 4), ncol =2) 
+> b <- c(7, 10)> x <- solve(A) %*% b> x     [,1][1,]    1[2,]    2Actually, the reason for the name “solve” for the matrix inverter is that it solves (several) systems of linear equations; the second argument of solve just defaults to the identity matrix. Hence the above example can be fixed in one go by:> solve(A, b)[1] 1 2
+1.3.11 Some additional rules for matrix operationsFor matrices A, B and C whose dimension match appropriately: the following rules apply 
+
+(A + B)⊤ = A⊤ + B⊤(AB)⊤ = B⊤A⊤ 
+A(B + C) = AB + AC 
+AB = AC !=> B = C
+
+In general AB != BAAI = IA = A
+If α is a number, then αAB = A(αB)
+1.3.12 Details on inverse matrices1.3.12.1 Inverse of a 2 × 2 matrixIt is easy find the inverse for a 2 × 2 matrix. WhenA = 
+|a b|
+|c d|then the inverse isA−1 = 
+1/(ad - bc)x
+| d -b|
+|-c  a|
+
+under the assumption that ab − bc != 0. The number ab − bc is called the determinant of A, sometimes written |A| or det(A). A matrix A has an inverse if and only if |A| ≠ 0.If |A| = 0, then A has no inverse, which happens if and only if the columns of A are linearly dependent.1.3.12.2 Inverse of diagonal matricesFinding the inverse of a diagonal matrix is easy: Let
+A = diag(a1, a2, . . . , an)where all ai != 0. Then the inverse isA−1 = diag( 1/a1, 1/a2, . . . , 1/an)If one ai = 0, then A−1 does not exist. 
+
+1.3.12.3 Generalized inverseNot all square matrices have an inverse — only those of full rank. However all matrices (not only square ones) have an infinite number of generalized inverses. A generalized inverse (G-inverse) of a matrix A is a matrix A− satisfying that
+(A)(A−)(A) = A.Note that if A is r×c then necessarily A− must be c×r.The generalized inverse can be found by the function ginv from the MASS package:
+> library( MASS )> ( A <- rbind(c(1,3,2),c(2,8,9)) )     [,1] [,2] [,3][1,]    1    3    2[2,]    2    8    9> ginv(A)           [,1]       [,2][1,]  0.4066667 -0.1066667[2,]  0.6333333 -0.1333333[3,] -0.6533333  0.2533333> A %*% ginv(A)              [,1]         [,2][1,]  1.000000e+00 2.220446e-16[2,] -8.881784e-16 1.000000e+00> ginv(A) %*% A           [,1]       [,2]        [,3][1,]  0.1933333 0.36666667 -0.14666667[2,]  0.3666667 0.83333333  0.06666667[3,] -0.1466667 0.06666667  0.97333333> A %*% ginv(A) %*% A     [,1] [,2] [,3][1,]    1    3    2[2,]    2    8    9
+Note that since A is 2×3, A− is 3×2, so the matrix AA− is the smaller of the two square matrices AA− and A−A. Because A is of full rank (and only then) AA− = I. This is the case for any G-inverse of a full rank matrix.For many practical problems it suffices to find a generalized inverse. We shall return to this in the discussion of reparametrization of models.1.3.12.4 Inverting an n × n matrixIn the following we will illustrate one frequently applied method for matrix inversion. The method is called Gauss–Seidels method and many computer programs, including solve() use variants of the method for finding the inverse of an n × n matrix.Consider the matrix A:> A <- matrix(c(2, 2, 3, 3, 5, 9, 5, 6, 7), ncol = 3) 
+> A     [,1] [,2] [,3][1,]    2    3    5[2,]    2    5    6[3,]    3    9    7We want to find the matrix B = A−1. To start, we append to A the identity matrix and call the result AB:> AB <- cbind(A,diag(c(1,1,1)))> AB     [,1] [,2] [,3] [,4] [,5] [,6][1,]    2    3    5    1    0    0[2,]    2    5    6    0    1    0[3,]    3    9    7    0    0    1
+On a matrix we allow ourselves to do the following three operations (sometimes called elementary operations) as often as we want:1. Multiply a row by a (non–zero) constant.2. Multiply a row by a (non–zero) constant and add the result to another row. 
+
+3. Interchange two rows.The aim is to perform such operations on AB in a way such that one ends up with a 3 × 6 matrix which has the identity matrix in the three leftmost columns. The three rightmost columns will then contain B = A−1.Recall that writing e.g. AB[1, ] extracts the entire first row of AB.• First, we make sure that AB[1, 1] = 1. Then we subtract a constant times the first row fromthe second to obtain that AB[2, 1] = 0, and similarly for the third row:> AB[1, ] <- AB[1, ]/AB[1, 1]> AB[2, ] <- AB[2, ] - 2*AB[1, ]> AB[3, ] <- AB[3, ] - 3*AB[1, ]> AB[1,][2,][3,]1  1.5  2.5  0.50  2.0  1.0 -1.00  4.5 -0.5 -1.50 0 1 0 0 1[,1] [,2] [,3] [,4] [,5] [,6]• Next we ensure that AB[2, 2] = 1. Afterwards we subtract a constant times the second row from the third to obtain that AB[3, 2] = 0:> AB[2, ] <- AB[2, ]/AB[2, 2]> AB[3, ] <- AB[3, ] - 4.5*AB[2, ]• Now we rescale the third row such that AB[3, 3] = 1:
+
+> AB[3, ] <- AB[3, ]/AB[3, 3]> AB[1,][2,][3,][,1] [,2] [,3]       [,4]      [,5]       [,6]   1  1.5  2.5  0.5000000 0.0000000  0.0000000   0  1.0  0.5 -0.5000000 0.5000000  0.0000000   0  0.0  1.0 -0.2727273 0.8181818 -0.3636364
+Then AB has zeros below the main diagonal.• We then work our way up to obtain that AB has zeros above the main diagonal:> AB[2, ] <- AB[2, ] - 0.5*AB[3, ]> AB[1, ] <- AB[1, ] - 2.5*AB[3, ]> AB     [,1] [,2] [,3]       [,4]        [,5]       [,6][1,] 1 1.5[2,] 0 1.0[3,] 0 0.00  1.1818182 -2.04545455  0.90909090 -0.3636364  0.09090909  0.18181821 -0.2727273  0.81818182 -0.3636364> AB[1, ] <- AB[1, ] - 1.5*AB[2, ]> AB     [,1] [,2] [,3]       [,4]        [,5]      [,6] 0.6363636 0.1818182-0.3636364[1,] 10[2,] 01[3,] 000  1.7272727 -2.181818180 -0.3636364  0.090909091 -0.2727273  0.81818182
+Now we extract the three rightmost columns of AB into the matrix B. We claim that B is theinverse of A, and this can be verified by a simple matrix multiplication> B <- AB[ , 4:6]> A %*% B              [,1]         [,2]         [,3][1,]  1.000000e+00 3.330669e-16 1.110223e-16[2,] -4.440892e-16 1.000000e+00 2.220446e-16[3,] -2.220446e-16 9.992007e-16 1.000000e+00So, apart from rounding errors, the product is the identity matrix, and hence B = A−1. This example illustrates that numerical precision and rounding errors is an important issue when making computer programs.
+
+Chapter 2 Linear models
+2.1 Least squaresConsider the table of pairs (xi, yi) below.x 1.00 2.00 3.00 4.00 5.00y 3.70 4.20 4.90 5.70 6.00A plot of yi against xi is shown in Figure 2.1.The plot in Figure 2.1 suggests an approximately linear relationship between y and x, i.e.yi = β0 + β1xi for i = 1, . . . , 5 
+
+Writing this in matrix form gives
+y 
+= 
+| y1  |
+| y2  |
+|. . .|
+| y5  |
+≈
+|1 x1 |
+|1 x2 |
+|. . .|
+|1 x5 |
+x
+|β0|
+|β1|
+= XβThe first question is: Can we find a vector β such that y = Xβ? The answer is clearly no, because that would require the points to lie exactly on a straight line.A more modest question is: Can we find a vector βˆ such that Xβˆ is in a sense “as close to y as possible”. The answer is yes. The task is to find βˆ such that the length of the vector
+
+e = y − Xβ
+is as small as possible. The solution isβˆ = (X⊤X)−1X⊤y
+Figure 2.1: Regression
+> y[1] 3.7 4.2 4.9 5.7 6.0> X       x[1,] 1 1[2,] 1 2[3,] 1 3[4,] 1 4[5,] 1 5> beta.hat <- solve(t(X) %*% X) %*% t(X) %*% y> beta.hat  [,1]  3.07 
+x 0.612.1.1 A neat little exercise — from a bird’s perspectiveExercise 2.1.1On a sunny day, two tables are standing in an English country garden. On each table birds of unknown species are sitting having the time of their lives.A bird from the first table says to those on the second table: “Hi – if one of you come to our table then there will be the same number of us on each table”. “Yeah, right”, says a bird from the second table, “but if one of you comes to our table, then we will be twice as many on our table as on yours”.How many birds are on each table? More specifically,• Write down two equations with two unknowns.• Solve these equations using the methods you have learned from linear algebra.• Simply finding the solution by trial-and-error is considered cheating.2.2 Linear models2.2.1 What goes on in least squares?A linear multiple regression model is formulated as:y = Xβ + ewhere y is an n-vector, X is a n × p matrix of covariates, β is a p-vector of parameters and e is an n-vector of residuals (errors) usually taken as independent normal variates, with identical variance σ2, say.Hence:y ∼ N(Xβ, σ2In)where In is the n × n identity matrix.The least squares fitted values are Xβˆ = X(X⊤X)−1X⊤y.This is the projection of the y-vector on the column space of X; it represents the vectorwhich has the smallest distance to y and which is a linear combination of the columns of X. The matrix applied to y is called the projection matrixPX = X(X⊤X)−1X⊤In least squares regression the fitted value are PXy. The projection is the matrix that satisfies that the difference between y and its projection is orthogonal to the columns in X 
+
+(y − PX y) ⊥ XThe orthogonality means that all of the columns in X are orthogonal to the columns of residuals, y − PXy = (I − PX)y, for any y. Hence any column in X should be orthogonal to any column in (I − PX), so if we take the transpose of X (which is p × n and multiply with the matrix (I − PX) (which is n × n) we should get 0:X⊤(I − PX) = X⊤ − X⊤X(X⊤X)−1X⊤ = X⊤ − X⊤ = 0 
+
+The orthogonality was formulated as:
+(I−PX) ⊥ X <=> X⊤(I−PX)=0
+Orthogonality of two vectors means that the inner product of them is 0. But this requires an inner product, and we have implicitly assumed that the inner product between two n-vectors was defined as:⟨a|b⟩ = sum(aibi) =a⊤bBut for any positive definite matrix M we can define an inner product as: 
+
+⟨a|b⟩ = a⊤MbIn particular we can use a diagonal matrix with positive values in the diagonal 
+
+⟨a|b⟩ = a⊤Wb = sum(aiwibi)A projection with respect to this inner product on the column space of X is: 
+
+PW = X(X⊤WX)−1X⊤WExercise 2.2.1Show that(y − PWy) ⊥W Xwhere ⊥W is orthogonality with respect to the inner product induced by the diagonal matrix W.2.2.2 Projections in EpiAs part of the machinery used in apc.fit, the Epi package has a function that perform this type of a projection, projection.ip, the “ip” part referring to the possibility of using any inner product defined by a diagonal matrix (i.e. weights, wi as above).The reason that a special function is needed for this, is that a blunt use of the matrix formula above will set up an n × n projection matrix, which will be prohibitive if n = 10,000, say.2.2.3 Constructing confidence intervals2.2.3.1 Single parametersOne handy usage of matrix algebra is in construction of confidence intervals of parameter functions. Suppose we have a vector of parameter estimates βˆ with corresponding estimated standard deviations σˆ, both p-vectors, say.The estimates with confidence intervals are:βˆ, βˆ − 1.96σˆ, βˆ + 1.96σˆThese three columns can be computed from the first columns by taking the p × 2 matrix (βˆ, σˆ) and post multiplying it with the 2 × 3 matrix:1  1    1 
+0 −1.96 1.96
+This is implemented in the function ci.mat in the Epi package:
+
+> library(Epi)> ci.mat()     Estimate      2.5%    97.5%[1,]        1  1.000000 1.000000[2,]        0 -1.959964 1.959964> ci.mat(alpha=0.1)     Estimate      5.0%    95.0%[1,]        1  1.000000 1.000000[2,]        0 -1.644854 1.644854
+So for a set of estimates and standard deviations we get:
+> beta <- c(1.83,2.38)> se <- c(0.32,1.57)> cbind(beta,se) %*% ci.mat()     Estimate       2.5%    97.5%[1,]     1.83  1.2028115 2.457188[2,]     2.38 -0.6971435 5.457143> cbind(beta,se) %*% ci.mat(0.1)     Estimate       5.0%    95.0%[1,]     1.83  1.3036468 2.356353[2,]     2.38 -0.2024202 4.962420
+2.2.4 Showing an estimated curveSuppose that we model an age-effect as a quadratic in age; that is we have a design matrix with the three columns [1|a|a2] where a is the ages. If the estimates for these three columns are(αˆ0, αˆ1, αˆ2), then the estimated age effect is αˆ0 + αˆ1a + αˆ2a2, or in matrix notation:
+
+(1 a a^2)
+x
+| αˆ0 |
+| αˆ1 || αˆ2 |If the estimated variance-covariance matrix of (α0, α1, α2) is Σ (a 3 × 3 matrix), then the variance of the estimated effect at age a is:
+
+(1 a a^2) x sum(|1 a a2|)This rather tedious approach is an advantage if we simultaneously want to compute the estimated rates at several ages a1, a2, . . . , an, say. The estimates and the variance covariance of these are then:| 1 a1 a1^2 |
+| 1 a2 a2^2 |
+| . . . . . |
+| 1 an an^2 |
+x
+| αˆ0 |
+| αˆ1 || αˆ2 |
+
+and
+
+| 1 a1 a1^2 |
+| 1 a2 a2^2 |
+| . . . . . |
+| 1 an an^2 |
+x Σ
+| 1    1    . . . 1   |
+| a1   a2   . . . a3  |
+| a1^2 a2^2 . . . a3^2|
+The matrix we use to multiply with the parameter estimates is the age-part of the design matrix we would have if observations were for ages a1, a2, . . . , an. The product of this piece of the design matrix and the parameter vector represents the function f(a) evaluated in the ages a1, a2, . . . , an.We can illustrate this approach by an example from the Epi package where we model the birth weight as a function of the gestational age, using the births dataset:
+> data(births)> str(births)'data.frame': 500 obs. of 8 variables: 
+$ id :num 12345678910...$ bweight: num 2974 3270 2620 3751 3200 ... 
+$ lowbw :num 0000000000...$ gestwks: num  38.5 NA 38.2 39.8 38.9 ...$ preterm:num 
+$ matage:num 
+$ hyp : num 
+$ sex : num0NA00000000... 34303531333329373639... 0000100000... 2121122121...> ma <- lm(bweight ~ gestwks + I(gestwks^2), data = births)> (beta <- coef(ma))
+ (Intercept)      gestwks I(gestwks^2)-8247.693621   406.461711    -2.893052
+> (cova <- vcov(ma))
+             (Intercept)      gestwks I(gestwks^2)(Intercept)  5307195.933 -292330.6903  3995.943420gestwks      -292330.690   16204.3875  -222.720377I(gestwks^2)    3995.943    -222.7204     3.075777
+If we want to predict the birth weight for gestational ages 32 to 42 weeks, say, we just set up the matrices needed and perform the computations:> ga.pts <- 32:42> G <- cbind(1, ga.pts, ga.pts^2)> wt.eff <- G %*% beta> sd.eff <- sqrt(diag(G %*% cova %*% t(G)))> wt.pred <- cbind(wt.eff, sd.eff) %*% ci.mat()> matplot(ga.pts, wt.pred, type="l", lwd = c(3, 1, 1), col = "black", lty = 1)This machinery has been implemented in the function ci.lin which takes a subset of the parameters from the model (selected via grep), and multiplies them (and the corresponding variance-covariance matrix) with a supplied matrix:
+
+> wt.ci <- ci.lin(ma, ctr.mat = G)[, c(1, 5, 6)]> matplot(ga.pts, wt.ci, type = "l", lty = 1, lwd = c(3, 1, 1), col = "black")The example with the age-specific birth weights is a bit irrelevant because they could have been obtained by the predict function.The interesting application is with more than one continuous variable, say gestational age and maternal age. Suppose we have a quadratic effect of both gestational age and maternal age:
+> ma2 <- lm(bweight ~ gestwks + I(gestwks^2) + matage + I(matage^2), data = births)> ci.lin(ma2)                  Estimate      StdErr          z           P          2.5%(Intercept)  -7404.0059740 2592.084329 -2.8563909 0.004284873 -12484.397903gestwks        409.2978884  127.755598  3.2037570 0.001356469 158.901518  -6.377671-201.384163  -1.395762I(gestwks^2)    -2.9284416matage         -53.8976266I(matage^2)      0.7959908                    97.5%(Intercept)  -2323.614045 1.759843 -1.6640354 0.09610536375.249616 -0.7162512 0.473836261 1.118262  0.7118107 0.476582033gestwksI(gestwks^2)matageI(matage^2)659.694259  0.520788 93.588910  2.987744
+and that we want to show the effect of gestational age for a maternal age of 35 (pretty close to the median) and the effect of maternal age relative to this reference point. (These two curves can be added to give predicted values of birth weight for any combination of gestational age and maternal age.)
+Figure 2.2: Prediction of the gestational age-specific birth weight. Left panel computed “by hand”, right panel using ci.lin.First we must specify the reference point for the maternal age, and also the points for maternal age for which we want to make predictions> ma.ref <- 35> ma.pts <- 20:45> M <- cbind(ma.pts, ma.pts^2)> M.ref <- cbind(ma.ref, ma.ref^2)Then we derive the estimated birth weight for a maternal age 35, as function of gestational age. To this end we need to have a contrast matrix which in each row has the 1, the gestational age, gestational age squared, the latter two for all the gestational ages of interest (that is the matrix G defined above) and the reference maternal age and the same squared (i.e. identical rows):> bw.ga <- ci.lin(ma2, ctr.mat = cbind(G, M.ref[rep(1, nrow(G)), ]))[ , c(1,5,6)]> matplot( ga.pts, bw.ga, type = "l", lty = 1, lwd = c(2, 1, 1), col = "black")Then to show the effect of maternal age on birth weight relative to the maternal age reference of 35, we sue only the maternal age estimates, but subtract rows corresponding to the reference point:
+
+> bw.ma <- ci.lin(ma2, subset = "matage", ctr.mat = M - M.ref[rep(1, nrow(M)), ])[ , c(1, 5, 6)]> matplot(ma.pts, bw.ma, type = "l", lty = 1, lwd = c(2, 1, 1), col = "black")Exercise 2.2.2Redo the two graphs in figure 2.3 with y-axes that have the same extent (in grams birth weight). 
+
+Why would you want to do that?2.2.4.1 SplinesThe real advantage is however when simple functions such as the quadratic is replaced by spline functions, where the model is a parametric function of the variables, and implemented in the functions ns and bs from the splines package.
+Figure 2.3: Prediction of the gestational age-specific birth weight for maternal age 35 (left) and the effect of maternal age on birth weight, relative to age 35.
+
+Exercise 2.2.3Repeat the exercise above, where you replace the quadratic terms with natural splines (using ns() with explicit knots), both in the model and in the prediction and construction of predictions and contrasts.
+2.2.5 Reparametrizations
+Above we saw how you can compute linear functions of estimated parameters using ci.lin. But suppose you have a model parametrized by the linear predictor Xβ, but that you really wanted the parametrization Aγ, where the columns of X and A span the same linear space. So Xβ = Aγ, and we assume that both X and A are of full rank, dim(X) = dim(A) = n × p, say.We want to find γ given that we know Xβ and that Xβ = Aγ. Since we have that p < n, we have that A−A = I, by the properties of G-inverses, and hence:γ = A−Aγ = A−XβThe essences of this formula are:1. Given that you have a set of fitted values in a model (in casu yˆ = Xβ) and you want the parameter estimates you would get if you had used the model matrix A. Then they are γ = A−yˆ = A−Xβ.2. Given that you have a set of parameters β, from fitting a model with design matrix X, and you would like the parameters γ, you would have got had you used the model matrix A. Then they are γ = A−Xβ.The latter point can be illustrated by linking the two classical parametrizations of a model with a factor, either with or without intercept:
+> FF <- factor(rep(1:3, each = 2))> (X <- model.matrix(~FF))
+(Intercept) FF2 FF3 1 100 2 100 3 110 4 110 5 101 6 101 attr(,"assign")[1] 0 1 1 attr(,"contrasts") attr(,"contrasts")$FF [1] "contr.treatment"> (A <- model.matrix(~FF-1))
+FF1 FF2 FF3 1100 2100 3010 4010 5001 6001 attr(,"assign")[1] 1 1 1 attr(,"contrasts") attr(,"contrasts")$FF [1] "contr.treatment"> library(MASS)> ginv(A) %*% X(Intercept) FF2 FF3 [1,] 100 [2,] 110 [3,] 101The last resulting matrix is clearly the one that translates from an intercept and two contrasts to three group means.The practical use of this may be somewhat limited, because the requirement is to know the “new” model matrix A, and if that is available, you might just fit the model using this.
