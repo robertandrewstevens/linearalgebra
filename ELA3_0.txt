@@ -1,0 +1,22 @@
+Elementary Linear Algebra
+Third Edition
+
+Howard Anton
+Drexel University
+
+1. Systems of Linear Equations and Matrices
+
+2. Determinants
+
+3. Vectors in 2-space and 3-space
+
+4. Vector spaces
+
+5. Linear Transformations
+
+6. Eigenvalues, Eigenvectors
+
+7. Applications
+
+8. Introduction to Numerical Methods of Linear Algebra
+

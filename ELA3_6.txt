@@ -1,0 +1,14 @@
+Elementary Linear Algebra
+Third Edition
+
+Howard Anton
+Drexel University
+
+6. Eigenvalues, Eigenvectors
+
+6.1 Eigenvalues and Eigenvectors
+
+6.2 Diagonalization
+
+6.3 Orthogonal Diagonalization; Symmetric Matrices
+

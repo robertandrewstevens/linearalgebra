@@ -1,0 +1,21 @@
+Elementary Linear Algebra
+Third Edition
+
+Howard Anton
+Drexel University
+
+1. Systems of Linear Equations and Matrices
+
+1.1 Introduction to Systems of Linear Equations
+
+1.2 Gaussian Elimination
+
+1.3 Homogeneous Systems of Linear Equations
+
+1.4 Matrices and Matrix Operations
+
+1.5 Rules of Matrix Arithmetic
+
+1.6 Elementary Matrices and a Method of Finding inv(A)
+
+

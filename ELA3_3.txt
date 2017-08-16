@@ -1,0 +1,19 @@
+Elementary Linear Algebra
+Third Edition
+
+Howard Anton
+Drexel University
+
+3. Vectors in 2-space and 3-space
+
+3.1 Introduction to Vectors (Geometric)
+
+3.2 Norm of a Vector; Vector Arithmetic
+
+3.3 Dot Product; Projections
+
+3.4 Cross Product
+
+3.5 Lines and Planes in 3-space
+
+

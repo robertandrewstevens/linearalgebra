@@ -1,0 +1,16 @@
+Elementary Linear Algebra
+Third Edition
+
+Howard Anton
+Drexel University
+
+2. Determinants
+
+2.1 The Determinant Function
+
+2.2 Evaluating Determinants by Row Reduction
+
+2.3 Properties of the Determinant Function
+
+2.4 Cofactor Expansion; Cramer’s Rule
+

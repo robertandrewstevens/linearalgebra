@@ -1,0 +1,29 @@
+Elementary Linear Algebra
+Third Edition
+
+Howard Anton
+Drexel University
+
+4. Vector spaces
+
+4.1 Euclidean n-Space
+
+4.2 General Vector Spaces
+
+4.3 Subspaces
+
+4.4 Linear Independence
+
+4.5 Basis and Dimension
+
+4.6 Row and Column Space of a Matrix; Rank; Applications to Finding Bases
+
+4.7 Inner Product Spaces
+
+4.8 Length and Angle in Inner Product Spaces
+
+4.9 Orthonormal Bases; Gram-Schmidt Process
+
+4.10 Coordinates; Change of Basis
+
+

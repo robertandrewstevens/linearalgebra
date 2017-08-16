@@ -1,0 +1,15 @@
+Elementary Linear Algebra
+Third Edition
+
+Howard Anton
+Drexel University
+
+7. Applications
+
+7.1 Application to Differential Equations
+
+7.2 Application to Approximation Problems; Fourier Series
+
+7.3 Quadratic Forms; Application to Conic Sections
+
+7.4 Quadratic Forms; Application to Quadric Surfaces

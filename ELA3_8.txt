@@ -1,0 +1,15 @@
+Elementary Linear Algebra
+Third Edition
+
+Howard Anton
+Drexel University
+
+8. Introduction to Numerical Methods of Linear Algebra
+
+8.1 Gaussian Elimination with Pivotal Condensation
+
+8.2 The Gauss-Seidel and Jacobi Methods
+
+8.3 Approximating Eigenvalues by the Power Method
+
+8.4 Approximating Non-dominant Eigenvalues by Deflation
