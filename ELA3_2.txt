@@ -8,9 +8,288 @@ Drexel University
 
 2.1 The Determinant Function
 
+Definition
+
+Example 1
+
+Example 2
+
+Figure 2.1
+
+Example 3
+
+Definition
+
+Example 4
+
+Example 5
+
+Example 6
+
+Definition
+
+Example 7
+
+Figure 2.2
+
+Example 8
+
+Warning
+
+Exercise Set 2.1
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
 2.2 Evaluating Determinants by Row Reduction
+
+Theorem 1
+
+Example 9
+
+Example 10
+
+Theorem 2
+
+Example 11
+
+Theorem 3
+
+Example 12
+
+Example 13
+
+Example 14
+
+Remark
+
+Example 15
+
+Example 16
+
+Exercise Set 2.2
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
 
 2.3 Properties of the Determinant Function
 
+Example 17
+
+Properties of the Transpose Operation
+
+Theorem 4
+
+Example 18
+
+Example 19
+
+Example 20
+
+Example 21
+
+Example 22
+
+Theorem 5
+
+Example 23
+
+Example 24
+
+Theorem 6
+
+Corollary
+
+Example 25
+
+Exercise Set 2.3
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
 2.4 Cofactor Expansion; Cramer’s Rule
 
+Definition
+
+Example 26
+
+Example 27
+
+Theorem 7
+
+Example 28
+
+Example 29
+
+Example 30
+
+Definition
+
+Example 31
+
+Theorem 8
+
+Example 32
+
+Theorem 9 (Cramer’s Rule)
+
+Example 33
+
+Exercise Set 2.4
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+18.
+
+19.
+
+20.
+
+21.
+
+22.
+
+23.
+
+24.
+
+25.
+
+26.
+
+Supplementary Exercises
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
