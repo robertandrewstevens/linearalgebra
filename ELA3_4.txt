@@ -8,17 +8,467 @@ Drexel University
 
 4.1 Euclidean n-Space
 
+Definition
+
+Figure 4.1
+
+Definition
+
+Theorem 1
+
+Definition
+
+Example 1
+
+Theorem 2
+
+Example 2
+
+Example 3
+
+Exercise Set 4.1
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+18.
+
 4.2 General Vector Spaces
+
+Definition
+
+Example 4
+
+Example 5
+
+Example 6
+
+Example 7
+
+Example 8
+
+Figure 4.2
+
+Example 9
+
+Figure 4.3
+
+Example 10
+
+Theorem 3
+
+Exercise Set 4.2
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+18.
+
+19.
+
+20.
+
+21.
 
 4.3 Subspaces
 
+Definition
+
+Theorem 4
+
+Example 11
+
+Figure 4.4
+
+Remark
+
+Example 12
+
+Example 13
+
+Example 14
+
+Example 15
+
+Definition
+
+Example 16
+
+Definition
+
+Example 17
+
+Example 18
+
+Example 19
+
+Theorem 5
+
+Notation
+
+Example 20
+
+Figure 4.5
+
+Exercise Set 4.3
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
 4.4 Linear Independence
+
+Example 21
+
+Example 22
+
+Example 23
+
+Example 24
+
+Example 25
+
+Figure 4.6
+
+Example 26
+
+Figure 4.7
+
+Theorem 6
+
+Exercise Set 4.4
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+18.
+
+19.
 
 4.5 Basis and Dimension
 
+Definition
+
+Example 27
+
+Example 28
+
+Example 29
+
+Example 30
+
+Example 31
+
+Example 32
+
+Theorem 7
+
+Theorem 8
+
+Example 33
+
+Example 34
+
+Definition
+
+Example 35
+
+Theorem 9
+
+Example 36
+
+Exercise Set 4.5
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+18.
+
+19.
+
+20.
+
+21.
+
+22.
+
+23.
+
 4.6 Row and Column Space of a Matrix; Rank; Applications to Finding Bases
 
+Definition
+
+Example 37
+
+Theorem 10
+
+Theorem 11
+
+Example 38
+
+Example 39
+
+Example 40
+
+Theorem 12
+
+Example 41
+
+Definition
+
+Theorem 13
+
+Theorem 14
+
+OPTIONAL: Proof of Theorem 10
+
+OPTIONAL: Proof of Theorem 12
+
+Exercise Set 4.6
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+18.
+
 4.7 Inner Product Spaces
+
+Definition
+
+Example 42
+
+Example 43
+
+Example 44
+
+Example 45
+
+Example 46
+
+Theorem 15
+
+Example 47
+
+Exercise Set 4.7
+
+1.
+
+2.
+
+3.
+
+4.
+
+5.
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+18.
 
 4.8 Length and Angle in Inner Product Spaces
 
